@@ -11,18 +11,21 @@ h1 {
     font-weight: 200;
     text-align: center;
     letter-spacing: 10px;
+    margin-bottom: 100px;
 }
 
 #score {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 100px;
 }
 
 #main {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 100px;
 }
 
 #buttons {
@@ -79,42 +82,4 @@ h1 {
     position: absolute;
     top: 51px;
     width: 113px;
-}
-
-/* SELECT SCREEN */
-
-#start {
-    position:fixed;
-    background-color: white;
-    height: 80%;
-    width: 80%;
-    left: 10%;
-    border-radius: 10px;
-    border: 5px dashed gray;
-}
-
-#twoPlayers {
-    position:fixed;
-    color: red;
-    height: 5%;
-    width: 40%;
-    left: 30%;
-    top: 40%;
-}
-
-#vsComputer {
-    position:fixed;
-    color:gray;
-    height: 5%;
-    width: 40%;
-    left: 30%;
-    top:46%;
-}
-
-#form1 {
-    color: black;
-}
-
-#form2 {
-    color: black;
 }
