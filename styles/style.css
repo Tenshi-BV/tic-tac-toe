@@ -21,10 +21,9 @@ h1 {
     margin-bottom: 100px;
 }
 
-#main {
+#grid-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
     margin-bottom: 100px;
 }
 
@@ -33,10 +32,14 @@ h1 {
     justify-content: center;
 }
 
-/* #1 SUB-BODY LEVEL ELEMENTS  */
+/* 2nd LEVEL ELEMENTS */
+
+#start {
+    color:red;
+}
 
 #board {
-    display:grid;
+    display: grid;
     height: 380px;
     width: 380px;
     grid-template-columns: repeat(3, 1fr);
