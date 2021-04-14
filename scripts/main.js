@@ -10,6 +10,9 @@ const gameBoard = (() => {
     const field8 = document.querySelector('#eight>div');
     const field9 = document.querySelector('#nine>div');
 
+    const resetButton = document.querySelector('#reset');
+    const playerButton = document.querySelector('#player');
+
     const playerFactory = (name) => {
         return { name };
     };
@@ -44,7 +47,6 @@ const gameBoard = (() => {
                 }
                 showBoard();
                 checkBoard();
-                switchPlayer();
             }
         };
 
@@ -68,8 +70,82 @@ const gameBoard = (() => {
         }
 
         const checkBoard = () => {
-            switch(){}
+            let signArray = displayController.map(box => box.sign);
+            if (signArray[0] === signArray[1] && signArray[1] === signArray[2] && signArray[0] !== 0) {
+                theWinner(turn);
+                return;
+            } else if (signArray[3] === signArray[4] && signArray[4] === signArray[5] && signArray[3] !== 0) {
+                theWinner(turn);
+                return;
+            } else if (signArray[6] === signArray[7] && signArray[7] === signArray[8] && signArray[6] !== 0) {
+                theWinner(turn);
+                return;
+            } else if (signArray[0] === signArray[3] && signArray[3] === signArray[6] && signArray[0] !== 0) {
+                theWinner(turn);
+                return;
+            } else if (signArray[1] === signArray[4] && signArray[4] === signArray[7] && signArray[1] !== 0) {
+                theWinner(turn);
+                return;
+            } else if (signArray[2] === signArray[5] && signArray[5] === signArray[8] && signArray[2] !== 0) {
+                theWinner(turn);
+                return;
+            } else if (signArray[0] === signArray[4] && signArray[4] === signArray[8] && signArray[0] !== 0) {
+                theWinner(turn);
+                return;
+            } else if (signArray[2] === signArray[4] && signArray[4] === signArray[6] && signArray[2] !== 0) {
+                theWinner(turn);
+                return;
+            } else {}
+            let fullField = signArray.some(box => box === 0);
+            if (fullField === false) {
+                alert("Tie!");
+                resetBoard();
+            }
+            switchPlayer();
         }
+
+        const theWinner = (x) => {
+            alert(`${x} wins!`);
+            matchFlow.gameCount(x)
+            resetBoard();
+        }
+
+        const resetBoard = () => {
+            displayController.filter(box => {
+                box.sign = 0
+            });
+            displayController.filter(box => {
+                box.field.classList.remove('circle');
+                box.field.classList.remove('cross');
+            });
+            showBoard();
+            turn = "player1";
+        }
+
+        return { turn, resetBoard }
+
+    })();
+
+    const matchFlow = (() => {
+        let playerOne = 0;
+        let playerTwo = 0;
+
+        const gameCount = (x) => {
+            if (x == "player1") {
+                ++playerOne
+            } else {
+                ++playerTwo
+            }
+        }
+
+        return { gameCount }
+
+    })();
+
+    const buttonFlow = (() => { 
+
+        resetButton.addEventListener('click', () => gameFlow.resetBoard());
+
     })();
 
 })()
