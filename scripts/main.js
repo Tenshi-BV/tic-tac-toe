@@ -1,5 +1,8 @@
 const gameBoard = (() => {
 
+    const player1DOM = document.querySelector('#player1');
+    const player2DOM = document.querySelector('#player2');
+
     const field1 = document.querySelector('#one>div');
     const field2 = document.querySelector('#two>div');
     const field3 = document.querySelector('#three>div');
@@ -13,8 +16,16 @@ const gameBoard = (() => {
     const resetButton = document.querySelector('#reset');
     const playerButton = document.querySelector('#player');
 
-    const playerFactory = (name) => {
-        return { name };
+
+
+    let player1 = "Player 1";
+    let player2 = "Player 2";
+    const playerFactory = () => {
+        let _player1 = prompt("Player 1:");
+        let _player2 = prompt("Player 2:");
+        player1 = _player1;
+        player2 = _player2;
+        scoreBoard.scoreUpdate();
     };
 
     let displayController = [
@@ -95,7 +106,7 @@ const gameBoard = (() => {
             } else if (signArray[2] === signArray[4] && signArray[4] === signArray[6] && signArray[2] !== 0) {
                 theWinner(turn);
                 return;
-            } else {}
+            } else { }
             let fullField = signArray.some(box => box === 0);
             if (fullField === false) {
                 alert("Tie!");
@@ -108,6 +119,7 @@ const gameBoard = (() => {
             alert(`${x} wins!`);
             matchFlow.gameCount(x)
             resetBoard();
+            scoreBoard.scoreUpdate();
         }
 
         const resetBoard = () => {
@@ -126,26 +138,49 @@ const gameBoard = (() => {
 
     })();
 
+
+    let playerOne = 0;
+    let playerTwo = 0;
     const matchFlow = (() => {
-        let playerOne = 0;
-        let playerTwo = 0;
 
         const gameCount = (x) => {
             if (x == "player1") {
-                ++playerOne
+                playerOne = playerOne + 1;
             } else {
-                ++playerTwo
+                playerTwo = playerTwo + 1;
             }
         }
 
-        return { gameCount }
+        const resetScore = () => {
+            playerOne = 0;
+            playerTwo = 0;
+        }
+
+        return { gameCount, resetScore }
 
     })();
 
-    const buttonFlow = (() => { 
+    const buttonFlow = (() => {
 
-        resetButton.addEventListener('click', () => gameFlow.resetBoard());
+        resetButton.addEventListener('click', () => {
+            gameFlow.resetBoard();
+            matchFlow.resetScore();
+            scoreBoard.scoreUpdate();
+        });
+        playerButton.addEventListener('click', () => playerFactory());
 
     })();
+
+    const scoreBoard = (() => {
+
+        const scoreUpdate = () => {
+            player1DOM.textContent = `${player1} : ${playerOne}`;
+            player2DOM.textContent = `${player2} : ${playerTwo}`;
+        }
+
+        return { scoreUpdate };
+    })();
+
+    scoreBoard.scoreUpdate();
 
 })()
